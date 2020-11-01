@@ -17,7 +17,6 @@ import javax.swing.*;
 
 public class Calculator extends javax.swing.JFrame {
       
-    
     int firstPos = 10;
     int secondPos = 95;
 
@@ -156,14 +155,16 @@ public class Calculator extends javax.swing.JFrame {
 
     void writeDecimal() {
         if (this.operator == ' ') {
-            if (!this.firstNumber.contains(".") && this.firstNumber.length() > 0) {
-                this.firstNumber += '.';
-                this.addDot();
+            if (!this.firstNumber.contains(".")
+                && this.firstNumber.length() > 0) {
+                    this.firstNumber += '.';
+                    this.addDot();
             }
         } else {
-            if (!this.secondNumber.contains(".") && this.secondNumber.length() > 0) {
-                this.secondNumber += '.';
-                this.addDot();
+            if (!this.secondNumber.contains(".")
+                && this.secondNumber.length() > 0) {
+                    this.secondNumber += '.';
+                    this.addDot();
             }
         }
     }
@@ -184,34 +185,32 @@ public class Calculator extends javax.swing.JFrame {
         this.flag = false;
         this.secondNumber = "";    
         this.firstNumber = String.valueOf(calculator.calculate());   
-        memoryText.setText(
-                String.valueOf(calculator.getFirstNumber()) 
-                        + calculator.getOperator() 
-                        + String.valueOf(calculator.getSecondNumber()));
     }
 
     void addDot() {
         input.setText(input.getText() + '.');
     }
 
-    void writeOperator(char requestedOperator) {
+    void writeOperator(char requestedOperator) {             
         this.operator = requestedOperator;
-        if (!this.flag && input.getText().length() != 0) {
+        
+       if (!this.flag && input.getText().length() != 0) {
+           input.setText(input.getText() + operator);
+           this.flag = true;         
+       }           
+       if (this.secondNumber.length() == 0 ) {
+           input.setText(
+              input.getText().substring(0,
+              input.getText().length() - 1));
             input.setText(input.getText() + operator);
-            this.flag = true;
-        } else {
-            this.operator = requestedOperator;
-            input.setText(input.getText().substring(0, input.getText().length() - 1));
-            input.setText(input.getText() + operator);
-            this.flag = true;
-        }
-    }
+            this.flag = true; 
+       }        
+    }            
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        memoryText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculator");
@@ -227,17 +226,11 @@ public class Calculator extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(memoryText)
-                .addContainerGap(241, Short.MAX_VALUE))
+            .addGap(0, 251, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(memoryText)
-                .addContainerGap(332, Short.MAX_VALUE))
+            .addGap(0, 343, Short.MAX_VALUE)
         );
 
         pack();
@@ -255,6 +248,5 @@ public class Calculator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel memoryText;
     // End of variables declaration//GEN-END:variables
 }
