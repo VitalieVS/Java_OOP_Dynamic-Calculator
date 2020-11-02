@@ -15,6 +15,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.*;
 
+/**
+ *
+ * @author User
+ */
 public class Calculator extends javax.swing.JFrame {
 
     int firstPos = 10;
@@ -28,7 +32,7 @@ public class Calculator extends javax.swing.JFrame {
     char operator = ' ';
     boolean errorFlag = false;
 
-    Calculate calculator = new Calculate();
+    CalculateInterface calculator = new CalculateInterfaceImpl();
 
     public Calculator() {
         initComponents();
@@ -171,7 +175,7 @@ public class Calculator extends javax.swing.JFrame {
         }
     }
 
-    void Negate() {      
+    void Negate() {
         if (this.operator == ' ') {
             if (this.firstNumber.contains("-")) {
                 this.firstNumber = this.firstNumber.replace("-", "");
@@ -180,19 +184,19 @@ public class Calculator extends javax.swing.JFrame {
                 this.firstNumber = "-" + this.firstNumber;
                 input.setText(this.firstNumber);
             }
-        } else {           
+        } else {
             if (this.secondNumber.contains("-")) {
                 this.secondNumber = this.secondNumber.replace("-", "");
-                input.setText(this.firstNumber 
-                        + this.operator 
+                input.setText(this.firstNumber
+                        + this.operator
                         + this.secondNumber);
             } else {
                 this.secondNumber = "-" + this.secondNumber;
-                input.setText(this.firstNumber 
-                            + this.operator 
-                            + this.secondNumber);
+                input.setText(this.firstNumber
+                        + this.operator
+                        + this.secondNumber);
             }
-        }      
+        }
     }
 
     void clearAll() {
@@ -200,7 +204,7 @@ public class Calculator extends javax.swing.JFrame {
         secondNumber = "";
         input.setText("");
         operator = ' ';
-        flag = false;            
+        flag = false;
     }
 
     void sendData() {
@@ -271,7 +275,6 @@ public class Calculator extends javax.swing.JFrame {
         });
 
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
