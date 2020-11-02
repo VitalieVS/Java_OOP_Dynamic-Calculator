@@ -16,14 +16,13 @@ import javax.swing.JButton;
 import javax.swing.*;
 
 public class Calculator extends javax.swing.JFrame {
-      
+
     int firstPos = 10;
     int secondPos = 95;
 
-    
     String firstNumber = "";
     String secondNumber = "";
-    
+
     boolean flag = false;
     JTextField input;
     char operator = ' ';
@@ -37,7 +36,7 @@ public class Calculator extends javax.swing.JFrame {
         createInput();
         createButtons();
     }
-    
+
     private void setLocation() {
         Dimension screenSize, frameSize;
         int x, y;
@@ -92,21 +91,21 @@ public class Calculator extends javax.swing.JFrame {
             }
             if (value.matches("^[0-9]*$")) {
                 if (!"0".equals(input.getText())) {
-                     if (!this.flag) {
+                    if (!this.flag) {
                         if ("0".equals(this.firstNumber) & "0".equals(value)) {
                             input.setText(value);
-                        } else {              
-                          this.firstNumber += value;
-                          input.setText(input.getText() + value);
+                        } else {
+                            this.firstNumber += value;
+                            input.setText(input.getText() + value);
                         }
                     } else {
-                         if ("0".equals(this.secondNumber) & "0".equals(value)) {
-                             input.setText(this.firstNumber + this.operator + value);
-                         } else {
+                        if ("0".equals(this.secondNumber) & "0".equals(value)) {
+                            input.setText(this.firstNumber + this.operator + value);
+                        } else {
                             this.secondNumber += value;
-                            input.setText(input.getText() + value);  
-                         }    
-                    }                   
+                            input.setText(input.getText() + value);
+                        }
+                    }
                 } else {
                     input.setText("");
                     writeInput(value);
@@ -132,7 +131,7 @@ public class Calculator extends javax.swing.JFrame {
                     case "x2":
                         calculator.setFirstNumber(firstNumber);
                         input.setText(String.valueOf(calculator.square()));
-                        this.firstNumber = String.valueOf(calculator.square()); 
+                        this.firstNumber = String.valueOf(calculator.square());
                         break;
                     case "=":
                         sendData();
@@ -140,10 +139,13 @@ public class Calculator extends javax.swing.JFrame {
                     case "√":
                         calculator.setFirstNumber(firstNumber);
                         input.setText(String.valueOf(calculator.sqrtNumber()));
-                        this.firstNumber = String.valueOf(calculator.sqrtNumber()); 
+                        this.firstNumber = String.valueOf(calculator.sqrtNumber());
                         break;
                     case "C":
                         clearAll();
+                        break;
+                    case "+/-":
+                        Negate();
                         break;
                 }
             }
@@ -156,57 +158,80 @@ public class Calculator extends javax.swing.JFrame {
     void writeDecimal() {
         if (this.operator == ' ') {
             if (!this.firstNumber.contains(".")
-                && this.firstNumber.length() > 0) {
-                    this.firstNumber += '.';
-                    this.addDot();
+                    && this.firstNumber.length() > 0) {
+                this.firstNumber += '.';
+                this.addDot();
             }
         } else {
             if (!this.secondNumber.contains(".")
-                && this.secondNumber.length() > 0) {
-                    this.secondNumber += '.';
-                    this.addDot();
+                    && this.secondNumber.length() > 0) {
+                this.secondNumber += '.';
+                this.addDot();
             }
         }
     }
-    
+
+    void Negate() {      
+        if (this.operator == ' ') {
+            if (this.firstNumber.contains("-")) {
+                this.firstNumber = this.firstNumber.replace("-", "");
+                input.setText(this.firstNumber);
+            } else {
+                this.firstNumber = "-" + this.firstNumber;
+                input.setText(this.firstNumber);
+            }
+        } else {           
+            if (this.secondNumber.contains("-")) {
+                this.secondNumber = this.secondNumber.replace("-", "");
+                input.setText(this.firstNumber 
+                        + this.operator 
+                        + this.secondNumber);
+            } else {
+                this.secondNumber = "-" + this.secondNumber;
+                input.setText(this.firstNumber 
+                            + this.operator 
+                            + this.secondNumber);
+            }
+        }      
+    }
+
     void clearAll() {
         firstNumber = "";
         secondNumber = "";
         input.setText("");
         operator = ' ';
-        flag = false;
+        flag = false;            
     }
 
     void sendData() {
         calculator.setFirstNumber(firstNumber);
-        calculator.setSecondNumber(secondNumber);       
-        calculator.setOperator(operator);         
+        calculator.setSecondNumber(secondNumber);
+        calculator.setOperator(operator);
         input.setText(String.valueOf(calculator.calculate()));
         this.flag = false;
-        this.secondNumber = "";    
-        this.firstNumber = String.valueOf(calculator.calculate());   
+        this.secondNumber = "";
+        this.firstNumber = String.valueOf(calculator.calculate());
     }
 
     void addDot() {
         input.setText(input.getText() + '.');
     }
 
-    void writeOperator(char requestedOperator) {             
+    void writeOperator(char requestedOperator) {
         this.operator = requestedOperator;
-        
-       if (!this.flag && input.getText().length() != 0) {
-           input.setText(input.getText() + operator);
-           this.flag = true;         
-       }           
-       if (this.secondNumber.length() == 0 ) {
-           input.setText(
-              input.getText().substring(0,
-              input.getText().length() - 1));
-            input.setText(input.getText() + operator);
-            this.flag = true; 
-       }        
-    }            
 
+        if (!this.flag && input.getText().length() != 0) {
+            input.setText(input.getText() + operator);
+            this.flag = true;
+        }
+        if (this.secondNumber.length() == 0) {
+            input.setText(
+                    input.getText().substring(0,
+                            input.getText().length() - 1));
+            input.setText(input.getText() + operator);
+            this.flag = true;
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

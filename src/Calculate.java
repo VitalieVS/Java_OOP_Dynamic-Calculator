@@ -76,11 +76,11 @@ public class Calculate  {
         return this.firstNumber * this.secondNumber;
     }
 
-    float divide() {
+    float divide() {    
         if (this.secondNumber == 0) {
             return 0;
         } else 
-        return this.firstNumber / this.secondNumber;
+        return this.firstNumber / this.secondNumber ;
     }
     
     float decrease() {
